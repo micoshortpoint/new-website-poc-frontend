@@ -1,0 +1,127 @@
+---
+import Container from "./Container.astro";
+import Logo from "./Logo.astro";
+
+var header = {
+  logo: "url_maybe",
+  menu: [
+    {
+      label: "Product",
+      items: [
+        {
+          label: "Works With",
+          items: [
+            {
+              label: "SharePoint",
+              icon: "",
+              url: "",
+            },
+            {
+              label: "Microsoft teams",
+              icon: "",
+              url: "",
+            },
+          ],
+        },
+        {
+          label: "Explore",
+          items: [
+            {
+              label: "Templates",
+              icon: "",
+              url: "",
+            },
+            {
+              label: "Elements",
+              icon: "",
+              url: "",
+            },
+            {
+              label: "Integrations",
+              icon: "",
+              url: "",
+            },
+          ],
+        },
+        {
+          label: "Features",
+          items: [
+            {
+              label: "Page Builder",
+              icon: "",
+              url: "",
+              description: "Create pages with Live and Grid Modes in real-time",
+            },
+            {
+              label: "Theme Builder",
+              icon: "",
+              url: "",
+              description: "Build any theme directly into your existing environment",
+            },
+            {
+              label: "Copy & Paste",
+              icon: "",
+              url: "",
+              description: "Build any theme directly into your existing environment",
+            },
+            {
+              label: "Connect",
+              icon: "",
+              url: "",
+              description: "Build any theme directly into your existing environment",
+            },
+            {
+              label: "Accessibility",
+              icon: "",
+              url: "",
+              description: "Build any theme directly into your existing environment",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      label: "Why ShortPoint",
+      items: [],
+    },
+    {
+      label: "Company",
+      items: [],
+    },
+    {
+      label: "Resources",
+      items: [],
+    },
+    {
+      label: "Pricing",
+      items: [],
+    },
+  ],
+  cta: {
+    label: "Start trial",
+    url: "/trial",
+  },
+};
+// We can set up these values using CMS
+---
+
+<header class="bg-[rgba(255,255,255,0.7)]">
+  <Container>
+    <div class="relative py-4 flex items-center">
+      <a href="/" class="mr-[1.25rem]">
+        <Logo />
+      </a>
+      <div class="hidden lg:flex items-center grow justify-between">
+        {
+          header.menu.map((item) => (
+            <a href="" class="py-2 px-4 xl:px-5 text-neutral-800">
+              {item.label}
+            </a>
+          ))
+        }
+        <a href={header.cta.url} class="ml-auto py-2 px-4 bg-primary-400 rounded-[0.4rem] font-semibold text-neutral-50"
+          >{header.cta.label}</a>
+      </div>
+    </div>
+  </Container>
+</header>

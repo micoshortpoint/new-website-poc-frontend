@@ -1,0 +1,18 @@
+---
+import { Image } from "astro:assets";
+import Container from "../components/global/Container.astro";
+import Layout from "./Layout.astro";
+
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={frontmatter.title}>
+  <main>
+    <Container>
+      <a href="/" class="text-[0.8rem]">&larr; back</a>
+      <h1 class="text-[3rem] mt-4 mb-8">{frontmatter.title}</h1>
+      <Image src={frontmatter.thumbnail} alt="" width="800" height="450" class="mb-8"/>
+      <slot />
+    </Container>
+  </main>
+</Layout>

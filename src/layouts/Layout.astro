@@ -1,0 +1,11 @@
+---
+import Header from "../components/global/Header.astro";
+import HTMLLayout from "./HTMLLayout.astro";
+
+const { title } = Astro.props;
+---
+
+<Header />
+<HTMLLayout title={title}>
+  <slot />
+</HTMLLayout>

@@ -1,0 +1,54 @@
+---
+import BlogCardGrid from "./BlogCardGrid.astro";
+import BlogCardPagination from "./BlogCardPagination.astro";
+const { posts } = Astro.props;
+const categories = [
+  "all", "snapshots", "articles",
+  "news", "events", "tips"
+];
+const pageLimit = 3;
+const pagedPosts = [];
+for (let ix = 0; ix < posts.length; ix += pageLimit) {
+  pagedPosts.push([]);
+  let p = Math.floor(ix / pageLimit);
+  for (let i = ix; i < ix + pageLimit; i++) {
+    typeof posts[i] !== "undefined" && pagedPosts[p].push(posts[i]);
+  }
+}
+
+let activePostIds = Object.keys(posts);
+// function filterPostIds(key, value) {
+//   if (key == "categ") currentCateg = value;
+// }
+---
+
+<div class="my-[10rem]" 
+  x-ref="cardsSection"
+  x-effect={`
+    console.log(currentCateg, currentPage, activePostIds);
+  `} 
+  >
+  <h2 class="text-[3rem] font-semibold tracking-tight">All Posts</h2>
+  <ul class="mt-6 flex flex-wrap gap-4 pb-5 border-b border-[#eaecf0]">
+    {
+      categories.map((categ) => (
+        <li class="text-[0.875rem] font-bold cursor-pointer"
+          @click=`
+            currentCateg='${categ}';
+            activePostIds = [];
+            currentPage=0;
+          `
+          x-bind:class={`
+            currentCateg !== 'all' && currentCateg == '${categ}' ? 'text-primary-400' : ''
+          `}
+        >{categ.replace(/^./, categ[0].toUpperCase())}</li>
+      ))
+    }
+  </ul>
+
+
+  <BlogCardGrid posts={posts} pageLimit={pageLimit} />
+
+  <BlogCardPagination posts={posts} pageLimit={pageLimit} />
+
+</div>

@@ -1,0 +1,32 @@
+---
+import { Image } from "astro:assets";
+---
+
+<div class="mx-auto max-w-[33.75rem]"
+x-show="step===0" x-cloak>
+  <h2 class="text-[2rem]">Tell us more about you</h2>
+  <div class="flex gap-8 mt-8 text-center">
+    <div class="px-8 py-6 grow flex flex-col items-center border rounded border-[#b9dcbc] bg-[#d4fad8]"
+      @click="step++"
+    >
+      <Image
+        src="https://assets-global.website-files.com/609271b0da3e568608217f2c/6278e412218d327714e3e3f7_new%20customer.svg"
+        alt=""
+        height="169"
+        width="94"
+        class="block mt-4 w-[80%]"
+      />
+      <span class="text-[1.5rem] mt-4 leading-tight">New <br />customer</span>
+    </div>
+    <div class="px-8 py-6 grow flex flex-col items-center border rounded border-[#a4c2f4] bg-primary-100">
+      <Image
+        src="https://assets-global.website-files.com/609271b0da3e568608217f2c/6278e412218d32481ee3e3f8_existing%20customer.svg"
+        alt=""
+        height="169"
+        width="94"
+        class="block mt-4 w-[80%]"
+      />
+      <span class="text-[1.5rem] mt-4 leading-tight">Existing <br />customer</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+---
+import CountriesSelect from "./CountriesSelect.astro";
+import EnvironmentsSelect from "./EnvironmentsSelect.astro";
+var pattern = "^[a-zA-Z0-9.%+_\-]+@(?!gmail.com)(?!mail.com)(?!yahoo.com)(?!hotmail.com)(?!yahoo.co.in)(?!aol.com)(?!live.com)(?!outlook.com)[a-zA-Z0-9]+.[a-zA-Z0-9.]{2,61}$"
+---
+
+<form x-show="step===1" x-cloak @submit=`$event.preventDefault(); alert("submitting" + JSON.stringify(getFormDataObj($el)))`>
+  <h2 class="text-[2rem]">Tell us more about you.</h2>
+  <div class="mt-8 grid grid-cols-2 gap-x-4 gap-y-2">
+    <div>
+      <label class="block w-full" for="">First Name</label>
+      <input class="block w-full mt-2 px-3 h-[2.5em] rounded border border-primary-800" type="text" name="firstname" required />
+    </div>
+    <div>
+      <label class="block w-full" for="">Last Name</label>
+      <input class="block w-full mt-2 px-3 h-[2.5em] rounded border border-primary-800" type="text" name="lastname" required />
+    </div>
+    <div class="col-start-1 col-end-3">
+      <label class="block w-full" for="">Business Email</label>
+      <input class="block w-full mt-2 px-3 h-[2.5em] rounded border border-primary-800" type="text" name="email" required pattern={pattern} oninvalid="setCustomValidity('Please enter business email')" oninput="setCustomValidity('')" />
+    </div>
+
+    <div>
+      <label class="block w-full" for="">Direct Phone</label>
+      <input class="block w-full mt-2 px-3 h-[2.5em] rounded border border-primary-800" type="text" name="phone" required />
+    </div>
+    <div>
+      <label class="block w-full" for="">Country</label>
+      <select class="block w-full mt-2 px-3 h-[2.5em] rounded border border-primary-800" name="country" required >
+        <CountriesSelect />
+      </select>
+    </div>
+    <div>
+      <label class="block w-full" for="">Job Title</label>
+      <input class="block w-full mt-2 px-3 h-[2.5em] rounded border border-primary-800" type="text" name="jobtitle" required />
+    </div>
+    <div>
+      <label class="block w-full" for="">Company Name</label>
+      <input class="block w-full mt-2 px-3 h-[2.5em] rounded border border-primary-800" type="text" name="company" required />
+    </div>
+    <div class="col-start-1 col-end-3">
+      <label class="block w-full" for="">Environment</label>
+      <select class="block w-full mt-2 px-3 h-[2.5em] rounded border border-primary-800" name="environment" required >
+        <EnvironmentsSelect />
+      </select>
+    </div>
+  </div>
+  <div class="mt-4">
+    <p class="text-neutral-800">I'm also interested in the following</p>
+  </div>
+  <div class="flex gap-4 mt-3">
+    <div class="grow flex gap-3 border border-solid border-2 border-primary-100 rounded rounded-md p-3 bg-neutral-50">
+      <label for="">Professional Services</label>
+      <input type="checkbox" name="professional_services" id="">
+    </div>
+  </div>
+  <input type="submit" value="Next" class="mt-8 py-2 px-6 bg-primary-400 text-neutral-50 rounded w-full">
+</form>
+
+<script>
+    window.getFormDataObj = function(form) {
+      var formLength = form.length;
+      console.log(formLength)
+      var data = {};
+      for (var i = 0; i < formLength; i++) {
+        if (form[i].getAttribute("type") == "submit") continue;
+        data[form[i].name] = form[i].value;
+      }
+
+      return data;
+    }
+</script>

@@ -1,0 +1,58 @@
+---
+const { imageUrl, title, tags, url, description } = Astro.props;
+import { Image } from "astro:assets";
+---
+
+<div
+  class="rounded-md group overflow-hidden rounded-[12px] hover:shadow-[0_0_12px_0_rgba(0,0,0,.15)] hover:bg-neutral-50 transition-shadow duration-300 ease-out transition-colors"
+>
+  <div class="grid md:grid-cols-[3fr_2fr] p-4 gap-8 justify-between">
+    <div class="overflow-hidden rounded-[12px]">
+      <a href={url} class="block">
+        <Image
+          src={imageUrl}
+          alt=""
+          width="300"
+          height="170"
+          class="w-full aspect-[16/9] object-cover transition-transform duration-300 ease-out group-hover:scale-[1.125] group-hover:rotate-[3.5deg]"
+        />
+      </a>
+    </div>
+
+    <div>
+      <!-- <span >
+        {title}
+      </span> -->
+
+      <a href={url} class="mt-6 block font-bold text-[1.5rem]">
+        {title}
+      </a>
+
+      <ul class="mt-4 flex gap-2">
+        {
+          tags.map((tag) => (
+            <li
+              x-on:click={`currentCateg="${tag}"; activePostIds = []; scrollToCards();`}
+              class="bg-primary-100 px-[1em] py-[0.6em] text-sm font-semibold text-primary-400 leading-none rounded-[6px] cursor-pointer"
+            >
+              {tag.replace(/^./, tag[0].toUpperCase())}
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="pt-6 pb-6 text-[1.25rem]">
+        {description}
+      </p>
+      <!-- <time datetime={date} class="text-[#97989f]">
+        {
+          new Date(date).toLocaleDateString("en-us", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })
+        }
+      </time> -->
+    </div>
+  </div>
+</div>

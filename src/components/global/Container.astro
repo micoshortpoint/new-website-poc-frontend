@@ -1,0 +1,11 @@
+---
+let { maxWidth } = Astro.props;
+maxWidth = typeof maxWidth !== "undefined" && maxWidth !== null ? maxWidth : "76.5rem";
+let className = `max-w-[${maxWidth}] mx-auto`;
+---
+
+<div class="px-[6.25vw] lg:px-[7.5vw]">
+    <div class="max-w-[76.5rem] mx-auto">
+        <slot />
+    </div>
+</div>

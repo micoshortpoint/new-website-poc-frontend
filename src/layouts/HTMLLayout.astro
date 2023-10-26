@@ -1,0 +1,50 @@
+---
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"
+    ></script>
+    <style is:global>
+      * {
+        margin: 0;
+        box-sizing: border-box;
+      }
+      html {
+        font-size: clamp(1rem, 1rem + 1vw - 16px, 1.25rem);
+      }
+      @font-face {
+        font-family: 'Euclid';
+        src: url('/assets/fonts/Euclid-Circular-B-Medium.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+      [x-cloak] {
+        display: none;
+      }
+    </style>    
+  </head>
+  <body class="font-body text-primary-800">
+    <slot />
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", (user) => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

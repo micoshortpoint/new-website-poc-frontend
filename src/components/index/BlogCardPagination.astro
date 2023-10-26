@@ -1,0 +1,47 @@
+---
+const { posts, pageLimit } = Astro.props;
+
+---
+
+<div class="pt-5 flex justify-between items-center border-t border-[#eaecf0]">
+  <span
+    class="cursor-pointer"
+    @click="currentPage=0"
+    x-bind:class="currentPage <= 0 ? 'text-[#333333] opacity-40' : ''"
+  >Previous</span>
+  <div class="flex gap-1">
+    <!-- {
+      posts.map((page, i) => (
+        <span
+          class="py-3 px-4 font-[#667085] leading-none rounded-lg cursor-pointer"
+          @click={`currentPage = ${i}`}
+          x-bind:class={`currentPage === ${i} ? 'bg-[#deefff]' : ''`}
+        >
+          {i + 1}
+        </span>
+      ))
+    } -->
+
+    {
+      posts.filter((post, i) => i % pageLimit === 0).map((post, i) => {
+        return (
+          <span
+            class="py-3 px-4 font-[#667085] leading-none rounded-lg cursor-pointer"
+            @click={`currentPage = ${i};`}
+            x-show={`${i} < Math.ceil(activePostIds.length / ${pageLimit})`}
+            x-bind:class={`currentPage === ${i} ? 'bg-[#deefff]' : ''`}
+          >
+            {i + 1}
+          </span>
+        );
+      })
+    }
+  </div>
+  <span
+    class="cursor-pointer"
+    @click={`currentPage = Math.floor((activePostIds.length-1)/${pageLimit})`}
+    x-bind:class={`currentPage >= Math.floor((activePostIds.length-1)/${pageLimit}) ? 'text-[#333333] opacity-40' : ''`}
+  >Next</span>
+</div>
+
+

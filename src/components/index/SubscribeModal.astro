@@ -1,0 +1,44 @@
+<div
+  class="fixed top-0 left-0 flex justify-center items-center bg-[#00000099] w-full h-screen transition-opacity duration-300 ease-out opacity-0 pointer-events-none"
+  x-bind:class="subscribeModal.visible ? 'opacity-100 pointer-events-auto' : 'opacity-0  pointer-events-none'"
+  x-cloak
+>
+  <div x-on:click={`subscribeModal.visible = false`} class="fixed top-0 left 0 w-full h-screen -z-10"></div>
+  <div class="p-12 bg-primary-200 max-w-[43.5rem] rounded-md">
+    <h3 class="text-[2rem] font-bold text-center">Subscribe to our Newsletter</h3>
+    <p class="mt-5 text-center">
+      Stay informed about upcoming Product Releases, Events and exciting Happenings at ShortPoint!
+    </p>
+    <form action="" class="mt-8" x-on:submit={`submitSubscribeModal`}>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div>
+          <label for="" class="block mb-1">First Name</label>
+          <input type="text" class="block w-full h-10 rounded-md border border-primary-800" data-name="firstname" />
+        </div>
+        <div>
+          <label for="" class="block mb-1">Last Name</label>
+          <input type="text" class="block w-full h-10 rounded-md border border-primary-800" data-name="lastname" />
+        </div>
+        <div>
+          <label for="" class="block mb-1">Business Email</label>
+          <input type="text" class="block w-full h-10 rounded-md border border-primary-800" data-name="email" />
+        </div>
+        <div>
+          <label for="" class="block mb-1">Company</label>
+          <input type="text" class="block w-full h-10 rounded-md border border-primary-800" data-name="company" />
+        </div>
+      </div>
+      <button
+        class="mt-8 w-full block py-2 px-4 bg-primary-400 rounded-[0.4rem] font-semibold text-neutral-50"
+        x-on:click={`subscribeModal.visible = false`}>Submit</button
+      >
+    </form>
+  </div>
+</div>
+
+<script>
+  window.submitSubscribeModal = function (e) {
+    e.preventDefault();
+    console.log(1011);
+  };
+</script>

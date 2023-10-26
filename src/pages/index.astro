@@ -1,0 +1,52 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/index/Hero.astro";
+import BlogCard from "../components/index/BlogCard.astro";
+import BlogGrid from "../components/index/BlogCardSection.astro";
+import HighlightBlogCard from "../components/index/HighlightBlogCard.astro";
+import BlogCardSection from "../components/index/BlogCardSection.astro";
+import Container from "../components/global/Container.astro";
+import SubscribeModal from "../components/index/SubscribeModal.astro";
+
+import fetchApi from "../lib/strapi";
+
+const blogPosts = await fetchApi({
+  endpoint: "blog?populate=featuredImage", // the content type to fetch
+  wrappedByKey: "data", // the key to unwrap the response
+});
+let activePostIds = Object.keys(blogPosts);
+// throw new Error(activePostIds)
+---
+
+<Layout title="POC ShortPoint Blog">
+  <main
+    class="bg-gradient-to-b from-primary-100 to-neutral-50"
+    x-data={`
+		{
+		  currentCateg: 'all',
+		  scrollToCards: function() {
+			$refs.cardsSection.scrollIntoView({ behavior: "smooth" })
+		  },
+		  currentPage: 0, 
+		  activePostIds: [],
+		  subscribeModal: {visible: false}
+		} 
+	  `}
+
+  >
+    <Container>
+      <Hero />
+
+      <HighlightBlogCard
+        title={blogPosts[0].attributes.title}
+        url={blogPosts[0].attributes.url}
+        imageUrl={import.meta.env.STRAPI_URL + blogPosts[0].attributes.featuredImage.data.attributes.url}
+        tags={blogPosts[0].attributes.tags}
+        description={blogPosts[0].attributes.description}
+      />
+
+      <BlogCardSection posts={blogPosts} />
+    </Container>
+    <SubscribeModal />
+  </main>
+</Layout>

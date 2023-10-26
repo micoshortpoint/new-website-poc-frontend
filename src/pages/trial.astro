@@ -1,0 +1,19 @@
+---
+import Container from "../components/global/Container.astro";
+import Background from "../components/trial/Background.astro";
+import Tabs from "../components/trial/Tabs.astro";
+import HTMLLayout from "../layouts/HTMLLayout.astro";
+---
+
+<HTMLLayout title="POC Trial Page">
+  <main x-data={`
+    {
+      step: 1
+    }
+  `}>
+    <Background />
+    <Container>
+      <Tabs />
+    </Container>
+  </main>
+</HTMLLayout>

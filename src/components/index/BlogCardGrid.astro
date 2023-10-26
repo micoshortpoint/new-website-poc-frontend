@@ -1,0 +1,60 @@
+---
+import BlogCard from "./BlogCard.astro";
+const { posts, pageLimit } = Astro.props;
+function passArray(array) {
+  return (
+    "[" +
+    array.map((t) => {
+      if (typeof t === "string") return passString(t);
+      return t;
+    }) +
+    "]"
+  );
+}
+
+function passString(str) {
+  return "'" + str + "'";
+}
+console.log(posts[1].attributes.featuredImage)
+let imageData = posts[1].attributes.featuredImage.data;
+  let imageUrl = imageData ? (import.meta.env.STRAPI_URL + imageData.attributes.url) : null;
+  // throw new Error(imageUrl)
+// throw new Error(import.meta.env.STRAPI_URL + posts[1].attributes.featuredImage.data?.attributes.url)
+---
+
+<ul class="my-[3.5rem] grid md:grid-cols-2 lg:grid-cols-3 gap-4"
+  x-show={`activePostIds.length > 0`}
+>
+  {
+    posts.map((post, i) => {
+      let imageData = post.attributes.featuredImage.data;
+      let imageUrl = imageData ? (import.meta.env.STRAPI_URL + imageData.attributes.url) : "";
+      return (
+        <div
+          x-show={`
+            (currentPage+1)*${pageLimit} > activePostIds.indexOf(${i}) 
+            && currentPage*${pageLimit} <= activePostIds.indexOf(${i})
+            && (currentCateg == 'all' || ${passArray(
+              post.attributes.tags
+            )}.includes(currentCateg)) 
+          `}
+          x-effect={`
+              (currentCateg == 'all'
+              || ${passArray(post.attributes.tags)}.includes(currentCateg))
+              && console.log(activePostIds.push(${i}))
+          `}
+        >
+          <BlogCard
+            title={post.attributes.title}
+            url={post.attributes.url}
+            imageUrl={imageUrl}
+            tags={post.attributes.tags}
+          />
+        </div>
+      );
+    })
+  }
+</ul>
+<p class="my-6 mx-auto w-fit" x-show={`activePostIds.length <= 0`}>
+  No posts found
+</p>
