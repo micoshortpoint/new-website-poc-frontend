@@ -1,5 +1,5 @@
 ---
-import getStrapiURL from "../../lib/getStrapiURL";
+import processImageURL from "../../lib/processImageURL";
 import BlogCard from "./BlogCard.astro";
 const { posts, pageLimit } = Astro.props;
 function passArray(array) {
@@ -17,8 +17,8 @@ function passString(str) {
   return "'" + str + "'";
 }
 console.log(posts[1].attributes.featuredImage)
-let imageData = posts[1].attributes.featuredImage.data;
-  let imageUrl = imageData ? (getStrapiURL() + imageData.attributes.url) : null;
+// let imageData = posts[1].attributes.featuredImage.data;
+  // let imageUrl = imageData ? (getStrapiURL() + imageData.attributes.url) : null;
   // throw new Error(imageUrl)
 // throw new Error(import.meta.env.STRAPI_URL + posts[1].attributes.featuredImage.data?.attributes.url)
 ---
@@ -29,7 +29,7 @@ let imageData = posts[1].attributes.featuredImage.data;
   {
     posts.map((post, i) => {
       let imageData = post.attributes.featuredImage.data;
-      let imageUrl = imageData ? (getStrapiURL() + imageData.attributes.url) : "";
+      let imageUrl = imageData ? processImageURL(imageData.attributes.url) : "";
       return (
         <div
           x-show={`

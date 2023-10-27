@@ -7,7 +7,7 @@ import HighlightBlogCard from "../components/index/HighlightBlogCard.astro";
 import BlogCardSection from "../components/index/BlogCardSection.astro";
 import Container from "../components/global/Container.astro";
 import SubscribeModal from "../components/index/SubscribeModal.astro";
-import getStrapiURL from "../lib/getStrapiURL";
+import processImageURL from "../lib/processImageURL";
 
 import fetchApi from "../lib/strapi";
 
@@ -41,7 +41,7 @@ let activePostIds = Object.keys(blogPosts);
       <HighlightBlogCard
         title={blogPosts[0].attributes.title}
         url={blogPosts[0].attributes.url}
-        imageUrl={getStrapiURL() + blogPosts[0].attributes.featuredImage.data.attributes.url}
+        imageUrl={processImageURL(blogPosts[0].attributes.featuredImage.data.attributes.url)}
         tags={blogPosts[0].attributes.tags}
         description={blogPosts[0].attributes.description}
       />
