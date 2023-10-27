@@ -1,4 +1,6 @@
 /// <reference types="astro/client" />
 interface ImportMetaEnv {
-  readonly STRAPI_URL: string;
+  readonly DEV_STRAPI_URL: string;
+  readonly PROD_STRAPI_URL: string;
+  readonly ENVIRONMENT: string;
 }

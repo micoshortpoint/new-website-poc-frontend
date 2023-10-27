@@ -7,6 +7,7 @@ import HighlightBlogCard from "../components/index/HighlightBlogCard.astro";
 import BlogCardSection from "../components/index/BlogCardSection.astro";
 import Container from "../components/global/Container.astro";
 import SubscribeModal from "../components/index/SubscribeModal.astro";
+import getStrapiURL from "../lib/getStrapiURL";
 
 import fetchApi from "../lib/strapi";
 
@@ -14,8 +15,8 @@ const blogPosts = await fetchApi({
   endpoint: "blog?populate=featuredImage", // the content type to fetch
   wrappedByKey: "data", // the key to unwrap the response
 });
+// throw new Error(blogPosts);
 let activePostIds = Object.keys(blogPosts);
-// throw new Error(activePostIds)
 ---
 
 <Layout title="POC ShortPoint Blog">
@@ -40,7 +41,7 @@ let activePostIds = Object.keys(blogPosts);
       <HighlightBlogCard
         title={blogPosts[0].attributes.title}
         url={blogPosts[0].attributes.url}
-        imageUrl={import.meta.env.STRAPI_URL + blogPosts[0].attributes.featuredImage.data.attributes.url}
+        imageUrl={getStrapiURL() + blogPosts[0].attributes.featuredImage.data.attributes.url}
         tags={blogPosts[0].attributes.tags}
         description={blogPosts[0].attributes.description}
       />

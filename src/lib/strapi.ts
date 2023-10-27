@@ -1,3 +1,5 @@
+import getStrapiURL from "./getStrapiURL";
+
 interface Props {
   endpoint: string;
   query?: Record<string, string>;
@@ -23,7 +25,7 @@ export default async function fetchApi<T>({
     endpoint = endpoint.slice(1);
   }
   // throw new Error(import.meta.env.STRAPI_URL)
-  const url = new URL(`${import.meta.env.STRAPI_URL}/api/${endpoint}`);
+  const url = new URL(`${getStrapiURL()}/api/${endpoint}`);
 
   if (query) {
     Object.entries(query).forEach(([key, value]) => {
