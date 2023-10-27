@@ -1,0 +1,41 @@
+<script is:inline>
+  function envFieldConditional() {
+    var val = environmentField.val();
+    // var ConditionalCheckboxContainer = $(".checkbox-container:nth-child(2)");
+    // var conditionalCheckboxes = $(".checkbox-trial:not(:first-child)");
+
+    //if env is online
+    if (isOnlineEnv()) {
+      $(".tenant-wrap,[data-condition]").show();
+      $(".tenant-wrap .field").attr("required", true);
+
+      if (val == "SharePoint 2019 (On-Premise)") {
+        $(".tenant-wrap .field").removeAttr("pattern");
+        $(".w-form form [data-error-message]").addClass("no");
+        // submitButton.removeAttr("disabled");
+      } else {
+        //office
+        // submitButton.attr("disabled", "");
+        $(".tenant-wrap .field").attr("pattern", "(.*)\\.sharepoint.com(\\/?)\\s*$");
+      }
+    } else {
+      $(".tenant-wrap,[data-condition]").hide();
+      $(".tenant-wrap .field").removeAttr("required");
+      // submitButton.removeAttr("disabled");
+      // if (conditionalCheckboxes.hasClass("active")) conditionalCheckboxes.click();
+      // if (conditionalCheckboxes.hasClass("checked")) conditionalCheckboxes.click();
+      $(".checkbox-trial.checked:not(:first-child)").click();
+    }
+  }
+
+  function isOnlineEnv (el) {
+    var val = el.value;
+    return val && (val == "Office 365" || val == "SharePoint Online" || val == "SharePoint 2019 (On-Premise)");
+  }
+
+  function isOfficeEnv() {
+    var val = environmentField.val() || trialFormData.environment;
+    return val && (val == "Office 365" || val == "SharePoint Online");
+  }
+
+</script>

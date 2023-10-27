@@ -1,7 +1,7 @@
 ---
 import CountriesSelect from "./CountriesSelect.astro";
 import EnvironmentsSelect from "./EnvironmentsSelect.astro";
-var pattern = "^[a-zA-Z0-9.%+_\-]+@(?!gmail.com)(?!mail.com)(?!yahoo.com)(?!hotmail.com)(?!yahoo.co.in)(?!aol.com)(?!live.com)(?!outlook.com)[a-zA-Z0-9]+.[a-zA-Z0-9.]{2,61}$"
+var pattern = "^[a-zA-Z0-9.%+_\\-]+@(?!gmail.com)(?!mail.com)(?!yahoo.com)(?!hotmail.com)(?!yahoo.co.in)(?!aol.com)(?!live.com)(?!outlook.com)[a-zA-Z0-9\\-]+.[a-zA-Z0-9\\-.]{2,61}$";
 ---
 
 <form x-show="step===1" x-cloak @submit=`$event.preventDefault(); alert("submitting" + JSON.stringify(getFormDataObj($el)))`>
@@ -40,7 +40,11 @@ var pattern = "^[a-zA-Z0-9.%+_\-]+@(?!gmail.com)(?!mail.com)(?!yahoo.com)(?!hotm
     </div>
     <div class="col-start-1 col-end-3">
       <label class="block w-full" for="">Environment</label>
-      <select class="block w-full mt-2 px-3 h-[2.5em] rounded border border-primary-800" name="environment" required >
+      <select class="block w-full mt-2 px-3 h-[2.5em] rounded border border-primary-800" name="environment" required 
+      @change={`
+        console.log(isOnlineEnv($el))
+      `}
+       >
         <EnvironmentsSelect />
       </select>
     </div>
